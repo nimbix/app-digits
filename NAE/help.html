@@ -1,0 +1,38 @@
+<h1>NVIDIA DIGITS 4</h1>
+NVIDIA DIGITS 4 is a web interface for accelerated machine learning with GPUs which leverages Caffe and Torque.
+
+<h2>Accessing the Web Interface</h2>
+<p>
+  Click the link to begin using your NVIDIA DIGITS web interface.
+  <br />
+  <a href="https://%PUBLICADDR%">https://%PUBLICADDR%/</a>
+  <br />
+  <ul>
+    <li><b>username:</b> nimbix</li>
+    <li><b>password:</b> %NIMBIXPASSWD%</li>
+  </ul>
+</p>
+
+<h2>DIGITS Documentation</h2>
+<p>
+  <ul>
+    <li><a href="https://www.nimbix.net/blog/2016/05/26/benchmarking-gpus-cloud-deep-learning/">Benchmarking GPUs in the Nimbix Cloud</a></li>
+    <li><a href="https://www.nimbix.net/blog/2016/04/25/digits-cloud-turn-key-deep-learning-work-flows/">Turn-key Deep Learning in the Cloud with GPUs and NVIDIA DIGITS</a></li>
+    <li><a href="https://developer.nvidia.com/digits">Official NVIDIA DIGITS Web Page</a></li>
+    <li><a href="https://groups.google.com/forum/#!forum/digits-users">NVIDIA DIGITS Users Group</a></li>
+  </ul>
+</p>
+
+<h2>SSH Access</h2>
+<p>
+  To access a terminal emulator in your NVIDIA DIGITS environment, you can connect by <b>ssh</b>:
+  <br />
+  <pre>
+    ssh nimbix@%PUBLICADDR%
+  </pre>
+  <br />
+  Your randomly generated password for this session is: <b>%NIMBIXPASSWD%</b>
+
+  You may optionally install an SSH public key for password-less access by clicking on your username in the top right of the portal, then <i>Account Settings</i>, then
+  <i>SSH Keys</i> to manage your SSH keys.
+</p>
