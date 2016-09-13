@@ -14,10 +14,10 @@
 # Author: Stephen Fox (stephen.fox@nimbix.net)
 
 image: Dockerfile
-	docker build -t digits .
+	docker build -t app-digits .
 
 tag: image
-	docker tag digits jarvice/digits:latest && docker tag digits jarvice/digits:4
+	docker tag app-digits jarvice/app-digits:latest && docker tag app-digits jarvice/app-digits:4
 
 all : tag
-	docker push jarvice/digits:latest && docker push jarvice/digits:4
+	docker push jarvice/app-digits:latest && docker push jarvice/app-digits:4
