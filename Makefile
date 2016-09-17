@@ -1,23 +1,39 @@
-# NIMBIX CONFIDENTIAL
-# -------------------
+# Copyright (c) 2016, Nimbix, Inc.
+# All rights reserved.
 #
-# Copyright (c) 2016 Nimbix, Inc.  All Rights Reserved.
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
 #
-# NOTICE:  All information contained herein is, and remains the property of
-# Nimbix, Inc. and its suppliers, if any.  The intellectual and technical
-# concepts contained herein are proprietary to Nimbix, Inc.  and its suppliers
-# and may be covered by U.S. and Foreign Patents, patents in process, and are
-# protected by trade secret or copyright law.  Dissemination of this
-# information or reproduction of this material is strictly forbidden unless
-# prior written permission is obtained from Nimbix, Inc.
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
 #
-# Author: Stephen Fox (stephen.fox@nimbix.net)
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# The views and conclusions contained in the software and documentation are
+# those of the authors and should not be interpreted as representing official
+# policies, either expressed or implied, of Nimbix, Inc.
+
 
 image: Dockerfile
 	docker build -t app-digits .
 
+
 tag: image
 	docker tag app-digits jarvice/app-digits:latest && docker tag app-digits jarvice/app-digits:4
+
 
 all : tag
 	docker push jarvice/app-digits:latest && docker push jarvice/app-digits:4
