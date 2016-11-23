@@ -1,25 +1,18 @@
 #!/bin/sh
 
-set -x
-sudo service ssh start >/dev/null 2>&1
+# http://docs.gunicorn.org/en/stable/settings.html
 
-DIGITS_DATA_DIR=/data/DIGITS/jobs
+sudo service nginx start
 
-mkdir -p $DIGITS_DATA_DIR
+cd /usr/share/digits
 
-service nginx start
+. /etc/JARVICE/jobenv.sh
+. /etc/JARVICE/jobinfo.sh
 
-if [ -r /etc/bitfusionio/adaptor.conf -a -x /usr/bin/bfboost ]; then
-    BITFUSION=1
-fi
+sed -i "s/{{hostname}}/${JOB_PUBLICADDR}/g" /usr/share/digits/digits/digits.cfg
 
-# digits-server assumes this working directory
-cd /usr/share/digits/
+mkdir -p /data/DIGITS/jobs
 
-if [ ! -z $BITFUSION ]; then
-    bfboost client /usr/share/digits/digits-server >> /var/log/digits/digits.log 2>&1 &
-else
-    /usr/share/digits/digits-server >> /var/log/digits/digits.log 2>&1 &
-fi
+cd /usr/share/digits
 
-sudo tail -f /var/log/nginx/error.log
+gunicorn --certfile /etc/JARVICE/cert.pem --keyfile /etc/JARVICE/cert.pem --config gunicorn_config.py digits.webapp:app 2>&1 | tee -a /var/log/digits/digits.log
