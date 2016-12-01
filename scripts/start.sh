@@ -6,7 +6,6 @@ sudo service nginx start
 
 cd /usr/share/digits
 
-. /etc/JARVICE/jobenv.sh
 . /etc/JARVICE/jobinfo.sh
 
 sed -i "s/{{hostname}}/${JOB_PUBLICADDR}/g" /usr/share/digits/digits/digits.cfg
