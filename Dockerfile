@@ -1,4 +1,4 @@
-FROM nimbix/base-ubuntu-nvidia
+FROM jarvice/ubuntu-ibm-mldl-ppc64le
 MAINTAINER Nimbix, Inc.
 
 USER root

@@ -26,9 +26,12 @@
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of Nimbix, Inc.
 
+OWNER:=jarvice
+NAME:=app-digits
+BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
 
 image: Dockerfile
-	docker build -t app-digits .
+	docker build -t $(OWNER)/$(NAME):$(BRANCH) .
 
 
 tag: image
