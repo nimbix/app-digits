@@ -36,13 +36,6 @@ WORKDIR ${CAFFE_ROOT}/build
 RUN cmake ..
 RUN make --jobs=4
 
-# Access to Machine Learning packages
-#ENV ML_REPO_PKG=nvidia-machine-learning-repo-ubuntu1404_4.0-2_amd64.deb
-#RUN wget http://developer.download.nvidia.com/compute/machine-learning/repos/u#bntu1404/x86_64/${ML_REPO_PKG} -O /tmp/${ML_REPO_PKG}
-#RUN dpkg -i /tmp/${ML_REPO_PKG}
-#RUN rm -f /tmp/${ML_REPO_PKG}
-
-# Add the example data sets
 RUN mkdir -p /db
 RUN python /usr/share/digits/digits/download_data mnist /db/mnist
 RUN python /usr/share/digits/digits/download_data cifar10 /db/cifar10
@@ -71,6 +64,5 @@ RUN chown -R nimbix:nimbix /usr/local/scripts
 RUN mkdir -p /usr/share/digits/digits
 RUN ln -sf /data/DIGITS/jobs /usr/share/digits/digits/jobs
 
+USER nimbix
 CMD ["/usr/local/scripts/start.sh"]
-
-ADD ./JARVICE /etc/JARVICE

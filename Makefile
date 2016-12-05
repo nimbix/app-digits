@@ -36,8 +36,7 @@ image: Dockerfile
 
 
 tag: image
-	docker tag $(OWNER)/$(NAME):$(BRANCH) && docker tag $(OWNER)/$(NAME):$(REV)
+	docker tag $(OWNER)/$(NAME):$(BRANCH) $(OWNER)/$(NAME):$(REV)
 
-
-all : tag
+push : tag
 	docker push $(OWNER)/$(NAME):$(BRANCH) && docker push $(OWNER)/$(NAME):$(REV)
