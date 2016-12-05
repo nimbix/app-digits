@@ -12,7 +12,7 @@ WORKDIR /usr/share
 RUN git clone https://github.com/NVIDIA/DIGITS.git digits
 ENV DIGITS_ROOT=/usr/share/digits
 WORKDIR ${DIGITS_ROOT}
-RUN git checkout -b v5.0.0
+RUN git checkout v5.0.0
 RUN sudo pip install -r $DIGITS_ROOT/requirements.txt
 RUN sudo pip install -e $DIGITS_ROOT
 
@@ -56,6 +56,7 @@ RUN apt-get install -y --force-yes nginx
 ADD ./conf/nginx.conf /etc/nginx/nginx.conf
 ADD ./conf/digits.site /etc/nginx/sites-available/digits.site
 RUN ln -sf /etc/nginx/sites-available/digits.site /etc/nginx/sites-enabled/digits.site
+#ADD ./conf/httpredirect.conf /etc/nginx/conf.d/httpredirect.conf
 
 # Add the JARVICE app-specific files
 ADD ./NAE/url.txt /etc/NAE/url.txt
@@ -72,5 +73,4 @@ RUN ln -sf /data/DIGITS/jobs /usr/share/digits/digits/jobs
 
 CMD ["/usr/local/scripts/start.sh"]
 
-RUN apt-get install -y gunicorn
 ADD ./JARVICE /etc/JARVICE
