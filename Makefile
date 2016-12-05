@@ -32,7 +32,7 @@ image: Dockerfile
 
 
 tag: image
-	docker tag app-digits jarvice/app-digits:latest && docker tag app-digits jarvice/app-digits:4
+	docker tag app-digits jarvice/app-digits:latest && docker tag app-digits jarvice/app-digits:5
 
 
 all : tag
