@@ -9,19 +9,12 @@ RUN apt-get install -y --force-yes libpng12-0 libpng12-dev libfreetype6 libfreet
 RUN apt-get build-dep -y --force-yes python-matplotlib
 
 WORKDIR /usr/share
-RUN git clone https://github.com/NVIDIA/DIGITS.git digits
+RUN git clone https://github.com/nimbix/DIGITS.git digits
 ENV DIGITS_ROOT=/usr/share/digits
 WORKDIR ${DIGITS_ROOT}
-RUN git checkout v5.0.0
+RUN git checkout digits-5.0-https
 RUN sudo pip install -r $DIGITS_ROOT/requirements.txt
 RUN sudo pip install -e $DIGITS_ROOT
-
-# # Access to CUDA packages (from https://github.com/NVIDIA/DIGITS/blob/digits-4.0/docs/UbuntuInstall.md#repository-access)
-# ENV CUDA_REPO_PKG=cuda-repo-ubuntu1604_8.0.44-1_amd64.deb
-# RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/${CUDA_REPO_PKG} -O /tmp/${CUDA_REPO_PKG}
-# RUN dpkg -i /tmp/${CUDA_REPO_PKG}
-# RUN rm -f /tmp/${CUDA_REPO_PKG}
-# RUN apt-get update
 
 # Install Caffe
 RUN apt-get install --no-install-recommends -y --force-yes build-essential cmake git gfortran libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-all-dev python-dev python-h5py python-matplotlib python-numpy python-opencv python-pil python-pip python-protobuf python-scipy python-skimage python-sklearn
