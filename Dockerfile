@@ -54,6 +54,7 @@ RUN ln -sf /etc/nginx/sites-available/digits.site /etc/nginx/sites-enabled/digit
 # Add the JARVICE app-specific files
 ADD ./NAE/url.txt /etc/NAE/url.txt
 ADD ./NAE/help.html /etc/NAE/help.html
+ADD ./NAE/AppDef.json /etc/NAE/AppDef.json
 ADD ./scripts /usr/local/scripts
 ADD ./conf/digits.cfg /usr/share/digits/digits/digits.cfg
 
