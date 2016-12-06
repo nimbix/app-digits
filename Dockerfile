@@ -9,10 +9,10 @@ RUN apt-get install -y --force-yes libpng12-0 libpng12-dev libfreetype6 libfreet
 RUN apt-get build-dep -y --force-yes python-matplotlib
 
 WORKDIR /usr/share
-RUN git clone https://github.com/NVIDIA/DIGITS.git digits
+RUN git clone https://github.com/nimbix/DIGITS.git digits
 ENV DIGITS_ROOT=/usr/share/digits
 WORKDIR ${DIGITS_ROOT}
-RUN git checkout v5.0.0
+RUN git checkout digits-5.0-https
 RUN sudo pip install -r $DIGITS_ROOT/requirements.txt
 RUN sudo pip install -e $DIGITS_ROOT
 
