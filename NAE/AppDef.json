@@ -1,8 +1,7 @@
 {
-  "name": "NVIDIA&reg; DIGITS 4",
+  "name": "NVIDIA&reg; DIGITS 5",
   "description": "The NVIDIA Deep Learning GPU Training System (DIGITS) puts the power of deep learning in the hands of data scientists and researchers.",
   "author": "NVIDIA",
-  "nae": "digits4.app",
   "licensed": true,
   "classifications": [
     "Machine Learning",
@@ -33,7 +32,7 @@
     "gui": {
       "path": "/usr/local/scripts/start.sh",
       "interactive": true,
-      "name": "DIGITS",
+      "name": "DIGITS 5",
       "description": "Run the DIGITS web portal directly in your browser session.",
       "parameters": {}
     }
@@ -43,8 +42,5 @@
     "type": "image/png"
   },
   "price": "0.00",
-  "appid": "jarvice-digits4",
-  "image_icon": "default.png",
-  "classification_txt": "'Uncategorized'",
-  "checkedout": "true"
+  "image_icon": "default.png"
 }
