@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # http://docs.gunicorn.org/en/stable/settings.html
 
