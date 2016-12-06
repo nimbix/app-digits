@@ -14,11 +14,16 @@ mkdir -p /data/DIGITS/jobs
 
 cd /usr/share/digits
 
-export CAFFE_ROOT=/opt/caffe-nv
+if [ -f /opt/DL/caffe-nv/bin/caffe-activate ]; then
+    . /opt/DL/caffe-nv/bin/caffe-activate
+fi
+
+if [ -f /opt/DL/torch/torch-activate ]; then
+    . /opt/DL/torch/torch-activate
+fi
+
 export DIGITS_JOBS_DIR=/data/DIGITS/jobs
 mkdir -p ${DIGITS_JOBS_DIR}
-
-#export TORCH_ROOT=/usr/local/torch-nv
 
 cd /usr/share/digits
 python digits -p 34448
