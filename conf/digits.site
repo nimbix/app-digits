@@ -2,7 +2,7 @@
 
 server {
     listen 443; #AUTOCONFIG port (DO NOT DELETE THIS LINE)
-    
+
     auth_basic "Restricted site";
     auth_basic_user_file /etc/JARVICE/htpasswd;
     ssl on;
@@ -13,17 +13,18 @@ server {
     ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
     ssl_prefer_server_ciphers on;
-                                                  
+    error_page 497  https://$host:$server_port$request_uri;
+
     # Gunicorn server
     location / {
         client_max_body_size 900M; # Increase this if you receive error 413
 
-        proxy_pass https://127.0.0.1:34448;
-        proxy_redirect http://$host:$server_port$uri https://$host:$server_port$uri;
+        proxy_pass http://127.0.0.1:34448/;
 
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
         # http://docs.gunicorn.org/en/stable/settings.html
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Protocol ssl;
@@ -35,12 +36,14 @@ server {
     # Socketio
     location /socket.io {
         proxy_pass https://127.0.0.1:34448/socket.io;
-        proxy_redirect http://$host:$server_port$uri https://$host:$server_port$uri;
         proxy_buffering off;
 
         proxy_set_header Host $host;
+        error_page 497 301 =307 https://$host:$server_port$request_uri;
+
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
         # http://docs.gunicorn.org/en/stable/settings.html
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Protocol ssl;
