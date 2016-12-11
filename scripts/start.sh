@@ -14,4 +14,4 @@ mkdir -p /data/DIGITS/jobs
 
 cd /usr/share/digits
 
-gunicorn --certfile /etc/JARVICE/cert.pem --keyfile /etc/JARVICE/cert.pem --config gunicorn_config.py digits.webapp:app 2>&1 | tee -a /var/log/digits/digits.log
+gunicorn --config gunicorn_config.py digits.webapp:app 2>&1 | tee -a /var/log/digits/digits.log
