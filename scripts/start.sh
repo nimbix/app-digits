@@ -3,6 +3,7 @@
 # http://docs.gunicorn.org/en/stable/settings.html
 
 sudo service nginx start
+sudo service ssh start
 
 cd /usr/share/digits
 
