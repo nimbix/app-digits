@@ -25,5 +25,8 @@ fi
 export DIGITS_JOBS_DIR=/data/DIGITS/jobs
 mkdir -p ${DIGITS_JOBS_DIR}
 
+DIGITS_FORCE_SSL=1
+export DIGITS_FORCE_SSL
+
 cd /usr/share/digits
 python digits -p 34448
