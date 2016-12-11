@@ -2,11 +2,26 @@ FROM nimbix/base-ubuntu-nvidia
 MAINTAINER Nimbix, Inc.
 
 USER root
-RUN apt-get update
-RUN apt-get install -y git
-RUN apt-get install --no-install-recommends -y --force-yes git graphviz python-dev python-flask python-flaskext.wtf python-gevent python-h5py python-numpy python-pil python-pip python-protobuf python-scipy
-RUN apt-get install -y --force-yes libpng12-0 libpng12-dev libfreetype6 libfreetype6-dev
-RUN apt-get build-dep -y --force-yes python-matplotlib
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y --force-yes \
+	git \
+	graphviz \
+	python-dev \
+	python-flask \
+	python-flaskext.wtf \
+	python-gevent \
+	python-h5py \
+	python-numpy \
+	python-pil \
+	python-pip \
+	python-protobuf \
+	python-scipy \
+        libpng12-0 \
+	libpng12-dev \
+	libfreetype6 \
+	libfreetype6-dev && \
+        apt-get build-dep -y --force-yes python-matplotlib && \
+        apt-get clean
 
 WORKDIR /usr/share
 RUN git clone https://github.com/nimbix/DIGITS.git digits
@@ -17,17 +32,16 @@ RUN sudo pip install -r $DIGITS_ROOT/requirements.txt
 RUN sudo pip install -e $DIGITS_ROOT
 
 # Install Caffe
-RUN apt-get install --no-install-recommends -y --force-yes build-essential cmake git gfortran libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-all-dev python-dev python-h5py python-matplotlib python-numpy python-opencv python-pil python-pip python-protobuf python-scipy python-skimage python-sklearn
+RUN apt-get install --no-install-recommends -y --force-yes build-essential cmake git gfortran libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-all-dev python-dev python-h5py python-matplotlib python-numpy python-opencv python-pil python-pip python-protobuf python-scipy python-skimage python-sklearn && apt-get clean
 
 # example location - can be customized
 ENV CAFFE_ROOT=/usr/local/caffe-nv
-RUN git clone https://github.com/NVIDIA/caffe.git $CAFFE_ROOT
-RUN pip install -r $CAFFE_ROOT/python/requirements.txt
+RUN git clone https://github.com/NVIDIA/caffe.git $CAFFE_ROOT && \
+    pip install -r $CAFFE_ROOT/python/requirements.txt
 WORKDIR $CAFFE_ROOT
 RUN mkdir build
 WORKDIR ${CAFFE_ROOT}/build
-RUN cmake ..
-RUN make --jobs=4
+RUN cmake .. && make --jobs=16
 
 RUN mkdir -p /db
 RUN python /usr/share/digits/digits/download_data mnist /db/mnist
@@ -37,7 +51,7 @@ RUN chown -R nimbix:nimbix /db
 RUN chown -R nimbix:nimbix /usr/share/digits
 
 
-RUN apt-get install -y --force-yes nginx
+RUN apt-get install -y --force-yes nginx && apt-get clean
 # Add our custom configuration
 ADD ./conf/nginx.conf /etc/nginx/nginx.conf
 ADD ./conf/digits.site /etc/nginx/sites-available/digits.site
@@ -52,8 +66,7 @@ ADD ./scripts /usr/local/scripts
 ADD ./conf/digits.cfg /usr/share/digits/digits/digits.cfg
 
 # Keep the digits logs in the standard place...append this to the output
-RUN mkdir -p /var/log/digits && touch /var/log/digits/digits.log && chown -R nimbix:nimbix /var/log/digits
-RUN chown -R nimbix:nimbix /usr/local/scripts
+RUN mkdir -p /var/log/digits && touch /var/log/digits/digits.log && chown -R nimbix:nimbix /var/log/digits && chown -R nimbix:nimbix /usr/local/scripts
 
 RUN mkdir -p /usr/share/digits/digits
 RUN ln -sf /data/DIGITS/jobs /usr/share/digits/digits/jobs
