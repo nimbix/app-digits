@@ -6,6 +6,7 @@ server {
     auth_basic "Restricted site";
     auth_basic_user_file /etc/JARVICE/htpasswd;
 
+
     # Gunicorn server
     location / {
         client_max_body_size 900M; # Increase this if you receive error 413
