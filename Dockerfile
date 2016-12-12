@@ -32,6 +32,22 @@ RUN sudo pip install -r $DIGITS_ROOT/requirements.txt
 RUN sudo pip install -e $DIGITS_ROOT
 
 # Install Caffe
+WORKDIR /tmp
+USER nimbix
+RUN sudo apt-get install -y devscripts \
+    dh-make \
+    build-essential && sudo apt-get clean && \
+    git clone https://github.com/NVIDIA/nccl.git && \
+    cd /tmp/nccl && \
+    make -j4 && \
+    make debian && \
+    make deb && \
+    sudo dpkg -i build/deb/*.deb && cd /tmp && rm -rf /tmp/nccl
+#ADD libnccl1_1.3.2-1+cuda8.0_amd64.deb ./libnccl.deb
+#ADD libnccl-dev_1.3.2-1+cuda8.0_amd64.deb ./libnccl-dev.deb
+#RUN dpkg -i libnccl.deb libnccl-dev.deb
+
+USER root
 RUN apt-get install --no-install-recommends -y --force-yes build-essential cmake git gfortran libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-all-dev python-dev python-h5py python-matplotlib python-numpy python-opencv python-pil python-pip python-protobuf python-scipy python-skimage python-sklearn && apt-get clean
 
 # example location - can be customized
@@ -41,7 +57,7 @@ RUN git clone https://github.com/NVIDIA/caffe.git $CAFFE_ROOT && \
 WORKDIR $CAFFE_ROOT
 RUN mkdir build
 WORKDIR ${CAFFE_ROOT}/build
-RUN cmake .. && make --jobs=16
+RUN cmake -DUSE_NCCL=ON .. && make --jobs=4
 
 RUN mkdir -p /db
 RUN python /usr/share/digits/digits/download_data mnist /db/mnist
