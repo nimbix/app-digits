@@ -4,34 +4,64 @@ MAINTAINER Nimbix, Inc.
 USER root
 RUN apt-get update && \
     apt-get install --no-install-recommends -y --force-yes \
+        git \
+        graphviz \
+        python-dev \
+        python-flask \
+        python-flaskext.wtf \
+        python-gevent \
+        python-h5py \
+        python-numpy \
+        python-pil \
+        python-pip \
+        python-protobuf \
+        python-scipy \
+        libpng12-0 \
+        libpng12-dev \
+        libfreetype6 \
+        libjpeg-dev \
+        libjpeg8 \
+        libfreetype6-dev \
+        build-essential \
+	cmake \
 	git \
-	graphviz \
+	gfortran \
+	libatlas-base-dev \
+	libboost-all-dev \
+	libgflags-dev \
+	libgoogle-glog-dev \
+	libhdf5-serial-dev \
+	libleveldb-dev \
+	liblmdb-dev \
+	libopencv-dev \
+	libprotobuf-dev \
+	libsnappy-dev \
+	protobuf-compiler \
+	python-all-dev \
 	python-dev \
-	python-flask \
-	python-flaskext.wtf \
-	python-gevent \
 	python-h5py \
+	python-matplotlib \
 	python-numpy \
+	python-opencv \
 	python-pil \
 	python-pip \
 	python-protobuf \
 	python-scipy \
-        libpng12-0 \
-	libpng12-dev \
-	libfreetype6 \
-	libfreetype6-dev && \
-        apt-get build-dep -y --force-yes python-matplotlib && \
-        apt-get clean
+	python-skimage \
+	python-sklearn \
+        && apt-get build-dep -y --force-yes python-matplotlib \
+	&& apt-get clean
 
 WORKDIR /usr/share
 RUN git clone https://github.com/nimbix/DIGITS.git digits
 ENV DIGITS_ROOT=/usr/share/digits
 WORKDIR ${DIGITS_ROOT}
 RUN git checkout digits-5.0-https
-RUN sudo pip install -r $DIGITS_ROOT/requirements.txt
+RUN sudo pip install --upgrade -r $DIGITS_ROOT/requirements.txt
 RUN sudo pip install -e $DIGITS_ROOT
 
 # Install Caffe
+VOLUME /tmp
 WORKDIR /tmp
 USER nimbix
 RUN sudo apt-get install -y devscripts \
@@ -43,21 +73,14 @@ RUN sudo apt-get install -y devscripts \
     make debian && \
     make deb && \
     sudo dpkg -i build/deb/*.deb && cd /tmp && rm -rf /tmp/nccl
-#ADD libnccl1_1.3.2-1+cuda8.0_amd64.deb ./libnccl.deb
-#ADD libnccl-dev_1.3.2-1+cuda8.0_amd64.deb ./libnccl-dev.deb
-#RUN dpkg -i libnccl.deb libnccl-dev.deb
-
-USER root
-RUN apt-get install --no-install-recommends -y --force-yes build-essential cmake git gfortran libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-all-dev python-dev python-h5py python-matplotlib python-numpy python-opencv python-pil python-pip python-protobuf python-scipy python-skimage python-sklearn && apt-get clean
 
 # example location - can be customized
+USER root
 ENV CAFFE_ROOT=/usr/local/caffe-nv
 RUN git clone https://github.com/NVIDIA/caffe.git $CAFFE_ROOT && \
     pip install -r $CAFFE_ROOT/python/requirements.txt
 WORKDIR $CAFFE_ROOT
-RUN mkdir build
-WORKDIR ${CAFFE_ROOT}/build
-RUN cmake -DUSE_NCCL=ON .. && make --jobs=4
+RUN mkdir build && cd ${CAFFE_ROOT}/build && cmake -DUSE_NCCL=ON -DUSE_CUDNN=ON .. && make -j4 && make install
 
 RUN mkdir -p /db
 RUN python /usr/share/digits/digits/download_data mnist /db/mnist
@@ -72,7 +95,6 @@ RUN apt-get install -y --force-yes nginx && apt-get clean
 ADD ./conf/nginx.conf /etc/nginx/nginx.conf
 ADD ./conf/digits.site /etc/nginx/sites-available/digits.site
 RUN ln -sf /etc/nginx/sites-available/digits.site /etc/nginx/sites-enabled/digits.site
-#ADD ./conf/httpredirect.conf /etc/nginx/conf.d/httpredirect.conf
 
 # Add the JARVICE app-specific files
 ADD ./NAE/url.txt /etc/NAE/url.txt
