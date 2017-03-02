@@ -3,6 +3,7 @@
 # http://docs.gunicorn.org/en/stable/settings.html
 
 sudo service nginx start
+sudo service ssh start
 
 cd /usr/share/digits
 
@@ -19,6 +20,9 @@ export DIGITS_JOBS_DIR=/data/DIGITS/jobs
 mkdir -p ${DIGITS_JOBS_DIR}
 
 #export TORCH_ROOT=/usr/local/torch-nv
+
+DIGITS_FORCE_SSL=1
+export DIGITS_FORCE_SSL
 
 cd /usr/share/digits
 python digits -p 34448
