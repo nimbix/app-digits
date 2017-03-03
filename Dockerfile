@@ -45,4 +45,6 @@ RUN chown -R nimbix:nimbix /usr/local/scripts
 RUN mkdir -p /usr/share/digits/digits
 RUN ln -sf /data/DIGITS/jobs /usr/share/digits/digits/jobs
 
+COPY ./NAE/screenshot.png /etc/NAE/screenshot.png
+
 CMD ["/usr/local/scripts/start.sh"]
