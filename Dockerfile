@@ -42,5 +42,7 @@ RUN mkdir -p /var/log/digits && \
     chown -R nimbix:nimbix /var/log/digits && \
     chown -R nimbix:nimbix /usr/local/scripts
 
+COPY ./NAE/screenshot.png /etc/NAE/screenshot.png
+
 USER nimbix
 CMD ["/usr/local/scripts/start.sh"]
