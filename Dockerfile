@@ -109,5 +109,7 @@ RUN mkdir -p /var/log/digits && touch /var/log/digits/digits.log && chown -R nim
 RUN mkdir -p /usr/share/digits/digits
 RUN ln -sf /data/DIGITS/jobs /usr/share/digits/digits/jobs
 
+COPY ./NAE/screenshot.png /etc/NAE/screenshot.png
+
 USER nimbix
 CMD ["/usr/local/scripts/start.sh"]
