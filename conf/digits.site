@@ -57,15 +57,15 @@ server {
     # Custom error pages
     location /custom_http_errors {
         ssi on;
-        alias /usr/share/digits/custom_http_errors;
+        alias /opt/digits/custom_http_errors;
     }
 
     # Static files
     location /static {
-        alias /usr/share/digits/digits/static;
+        alias /opt/digits/digits/static;
     }
     location /files {
-        alias /usr/share/digits/digits/jobs; #AUTOCONFIG jobs_dir (DO NOT DELETE THIS LINE)
+        alias /opt/digits/digits/jobs; #AUTOCONFIG jobs_dir (DO NOT DELETE THIS LINE)
         autoindex on;
         autoindex_exact_size off;
         autoindex_localtime on;
