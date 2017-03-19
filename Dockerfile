@@ -1,5 +1,9 @@
 FROM nvcr.io/nvidia/digits:17.02
 
+WORKDIR /tmp
+RUN RUN git clone https://github.com/nimbix/image-common.git && image-common/install-nimbix-ubuntu-trusty.sh && rm -rf image-common
+EXPOSE 22
+
 RUN mkdir -p /db
 RUN python /opt/digits/digits/download_data mnist /db/mnist
 RUN python /opt/digits/digits/download_data cifar10 /db/cifar10
