@@ -1,1 +1,1 @@
-https://%PUBLICADDR%/
+http://%PUBLICADDR%/

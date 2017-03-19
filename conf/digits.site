@@ -1,12 +1,12 @@
 # DIGITS nginx site
 
 server {
-    listen 443; #AUTOCONFIG port (DO NOT DELETE THIS LINE)
+    listen 80; #AUTOCONFIG port (DO NOT DELETE THIS LINE)
 
     auth_basic "Restricted site";
     auth_basic_user_file /etc/JARVICE/htpasswd;
 
-    ssl on;
+    ssl off;
     ssl_certificate /etc/JARVICE/cert.pem;
     ssl_certificate_key /etc/JARVICE/cert.pem;
     ssl_session_timeout 5m;
