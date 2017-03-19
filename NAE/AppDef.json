@@ -4,16 +4,10 @@
     "author": "NVIDIA",
     "licensed": true,
     "classifications": [
-        "Machine Learning/Deep Learning"
+        "NVIDIA DGX/Deep Learning"
     ],
     "machines": [
-        "ng0",
-        "ng1",
-        "ng4",
-        "ng5",
-        "ng6",
-        "ngd4",
-        "ngd5"
+        "ngo8"
     ],
     "scale_max": 1,
     "vault-types": [

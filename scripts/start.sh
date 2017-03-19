@@ -5,21 +5,16 @@
 sudo service nginx start
 sudo service ssh start
 
-cd /usr/share/digits
+cd /opt/digits
 
 . /etc/JARVICE/jobinfo.sh
 
-sed -i "s/{{hostname}}/${JOB_PUBLICADDR}/g" /usr/share/digits/digits/digits.cfg
+sed -i "s/{{hostname}}/${JOB_PUBLICADDR}/g" /opt/digits/digits/digits.cfg
 
-mkdir -p /data/DIGITS/jobs
+cd /opt/digits
 
-cd /usr/share/digits
-
-export CAFFE_ROOT=/usr/local/caffe-nv
 export DIGITS_JOBS_DIR=/data/DIGITS/jobs
 mkdir -p ${DIGITS_JOBS_DIR}
-
-#export TORCH_ROOT=/usr/local/torch-nv
 
 DIGITS_FORCE_SSL=1
 export DIGITS_FORCE_SSL
