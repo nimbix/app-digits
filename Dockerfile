@@ -4,13 +4,11 @@ WORKDIR /tmp
 RUN git clone https://github.com/nimbix/image-common.git && image-common/install-nimbix-ubuntu-trusty.sh && rm -rf image-common
 EXPOSE 22
 
-RUN mkdir -p /db
-RUN python /opt/digits/digits/download_data mnist /db/mnist
-RUN python /opt/digits/digits/download_data cifar10 /db/cifar10
-RUN python /opt/digits/digits/download_data cifar100 /db/cifar100
-RUN chown -R nimbix:nimbix /db
 RUN chown -R nimbix:nimbix /opt/digits
-
+RUN mkdir -p /db
+RUN python /opt/digits/digits/download_data mnist /db/mnist && chown -R nimbix:nimbix /db/mnist
+RUN python /opt/digits/digits/download_data cifar10 /db/cifar10 && chown -R nimbix:nimbix /db/cifar10
+RUN python /opt/digits/digits/download_data cifar100 /db/cifar100 && chown -R nimbix:nimbix /db/cifar100
 
 RUN apt-get install -y --force-yes nginx && apt-get clean
 # Add our custom configuration
