@@ -1,7 +1,7 @@
 FROM nvcr.io/nvidia/digits:17.02
 
 WORKDIR /tmp
-RUN RUN git clone https://github.com/nimbix/image-common.git && image-common/install-nimbix-ubuntu-trusty.sh && rm -rf image-common
+RUN git clone https://github.com/nimbix/image-common.git && image-common/install-nimbix-ubuntu-trusty.sh && rm -rf image-common
 EXPOSE 22
 
 RUN mkdir -p /db
