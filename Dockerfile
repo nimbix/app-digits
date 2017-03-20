@@ -16,7 +16,7 @@ RUN apt-get install -y --force-yes nginx && apt-get clean
 # Add our custom configuration
 ADD ./conf/nginx.conf /etc/nginx/nginx.conf
 ADD ./conf/digits.site /etc/nginx/sites-available/digits.site
-RUN ln -sf /etc/nginx/sites-available/digits.site /etc/nginx/sites-enabled/digits.site
+RUN ln -sf /etc/nginx/sites-available/digits.site /etc/nginx/sites-enabled/digits.site && rm -f /etc/nginx/sites-enabled/default
 
 # Add the JARVICE app-specific files
 ADD ./NAE/url.txt /etc/NAE/url.txt
