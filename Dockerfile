@@ -1,7 +1,13 @@
-FROM nvcr.io/nvidia/digits:17.02
+FROM nvcr.io/nvidia/digits:17.04
 
-WORKDIR /tmp
-RUN git clone https://github.com/nimbix/image-common.git && image-common/install-nimbix-ubuntu-trusty.sh && rm -rf image-common
+RUN apt-get -y update && \
+    apt-get -y install curl && \
+    apt-get clean && \
+    curl -H 'Cache-Control: no-cache' \
+        https://raw.githubusercontent.com/nimbix/image-common/master/install-nimbix.sh \
+        | bash
+
+# Expose port 22 for local JARVICE emulation in docker
 EXPOSE 22
 
 RUN chown -R nimbix:nimbix /opt/digits
