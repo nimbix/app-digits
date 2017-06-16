@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/digits:17.04
+FROM nvcr.io/nvidia/digits:17.05
 
 RUN apt-get -y update && \
     apt-get -y install curl && \
