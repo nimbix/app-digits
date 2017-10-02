@@ -20,7 +20,7 @@
         "gui": {
             "path": "/usr/local/scripts/start.sh",
             "interactive": true,
-            "name": "DIGITS 5",
+            "name": "DIGITS 6",
             "description": "Run the DIGITS web portal directly in your browser session.",
             "parameters": {}
         }
