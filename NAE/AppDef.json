@@ -7,8 +7,8 @@
         "Machine Learning/Deep Learning"
     ],
     "machines": [
-        "np8g1",
-        "np8g4"
+        "np8gk*",
+        "np8g*"
     ],
     "scale_max": 1,
     "vault-types": [
