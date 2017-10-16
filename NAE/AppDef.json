@@ -4,7 +4,8 @@
     "author": "NVIDIA",
     "licensed": true,
     "classifications": [
-        "Machine Learning/Deep Learning"
+        "Machine Learning/Deep Learning",
+        "IBM POWER/Machine Learning/Deep Learning"
     ],
     "machines": [
         "np8gk*",
